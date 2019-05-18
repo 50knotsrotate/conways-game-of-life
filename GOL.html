@@ -1,99 +1,15 @@
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d"); // g
-var grid = [];
-const rows = 70;
-
-class Cell {
-  constructor(x, y, size, current, newVal, pos) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.current = current;
-    this.newVal = newVal;
-    this.pos = pos;
-    this.update = function() {
-      var count = 0;
-      for (let i = -1; i < 2; i++) {
-        for (let j = -1; j < 2; j++) {
-          if (i == 0 && j == 0) {
-          } else {
-            if (
-              grid[(this.pos.x + j + rows) % rows][
-                (this.pos.y + i + rows) % rows
-              ].current
-            ) {
-              count++;
-            }
-          }
-        }
-      }
-      if (this.current) {
-        this.newVal = count == 3 || count == 2;
-      } else {
-        this.newVal = count == 3;
-      }
-    };
-  }
-}
-
-function createGrid() {
-  for (let i = 0; i < rows; i++) {
-    var _temp = [];
-    for (let j = 0; j < rows; j++) {
-      _temp.push(
-        new Cell(
-          j * (canvas.width / rows),
-          i * (canvas.height / rows),
-          canvas.width / rows,
-          Math.random() > 0.5,
-          null,
-          { x: i, y: j }
-        )
-      );
-    }
-
-    grid.push(_temp);
-  }
-}
-createGrid();
-
-function drawGrid() {
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < rows; j++) {
-      context.beginPath();
-      if (grid[j][i].current) {
-        context.fillStyle = "white";
-      } else {
-        context.fillStyle = "black";
-      }
-      context.rect(
-        grid[j][i].x,
-        grid[j][i].y,
-        grid[i][j].size,
-        grid[i][j].size
-      );
-      context.fill();
-      context.stroke();
-    }
-  }
-}
-
-function go() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  //check neighbors
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < rows; j++) {
-      grid[j][i].update();
-    }
-  }
-  //set new to current
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < rows; j++) {
-      grid[j][i].current = grid[j][i].newVal;
-      grid[j][i].newVal = null;
-    }
-  }
-
-  drawGrid();
-}
-setInterval(go, 30);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel = 'stylesheet' href = './gol.css' />
+    <title>The Game of Life</title>
+</head>
+<body>
+    <canvas id = 'canvas'></canvas>
+    
+    <script src = './gol.js'></script>
+</body>
+</html>
