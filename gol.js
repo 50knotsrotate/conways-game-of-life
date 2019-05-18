@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d"); // g
 var grid = [];
-const rows = 80;
+const rows = 50;
 
 class Cell {
   constructor(x, y, size, current, newVal, pos) {
@@ -15,23 +15,13 @@ class Cell {
       var count = 0;
       for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) {
-          if (i == 0 && j == 0) {
-          } else {
-            if (
-              grid[(this.pos.x + j + rows) % rows][
-                (this.pos.y + i + rows) % rows
-              ].current
-            ) {
-              count++;
-            }
-          }
+          grid[(this.pos.x + j + rows) % rows][(this.pos.y + i + rows) % rows]
+            .current && count++;
         }
       }
-      if (this.current) {
-        this.newVal = count == 3 || count == 2;
-      } else {
-        this.newVal = count == 3;
-      }
+      this.current
+        ? (this.newVal = count == 4 || count == 3)
+        : (this.newVal = count == 3);
     };
   }
 }
@@ -61,11 +51,7 @@ function drawGrid() {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < rows; j++) {
       context.beginPath();
-      if (grid[j][i].current) {
-        context.fillStyle = "white";
-      } else {
-        context.fillStyle = "black";
-      }
+      context.fillStyle = grid[i][j].current ? "black" : "white";
       context.rect(
         grid[j][i].x,
         grid[j][i].y,
@@ -86,6 +72,7 @@ function go() {
       grid[j][i].update();
     }
   }
+
   //set new to current
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < rows; j++) {
@@ -93,7 +80,6 @@ function go() {
       grid[j][i].newVal = null;
     }
   }
-
   drawGrid();
 }
-setInterval(go, 90);
+setInterval(go, 100);
