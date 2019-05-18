@@ -5,3 +5,6 @@
   <li>Open in browser</li>
   <li>Thats it!</li>
  </ol>
+ 
+ <h1>Cool.. Its a bunch of squares.. So whats going on here?</h1>
+ <h2>Thats a great question! I'm glad I asked.</h2>
