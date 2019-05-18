@@ -28,8 +28,12 @@ What you are seeing here is called "The Game Of Life", which is a type of "cellu
 <h3>If the cell is alive (blue)</h3>
 <ul>
   <li>It stays alive(blue) if, and only if, the amount of live cells that surround it is 2 or 3(if a blue cell has 2 or 3 blue cells around it, it stays blue)</li>
-  <li><IT dies(turns gold) if it has fewer than 2, or greater than three live(blue) cells around it/li>
+  <li><IT dies(turns gold) if it has fewer than 2, or greater than three live(blue) cells around it</li>
 </ul>
     <h3>If the cell is dead (yellow)</h3>
   <li>It becomes alive (blue) if it has exactly 3 live(blue) cells that surround it</li>
   <li>Otherwise, it dies(tuens blue)</li>
+  
+  <h1>But what about corners and edges? They dont have the same amount of neighbors as cells in the middle.</h1>
+  <p>Good point. This was one of the problems I had in trying to get this to work. I had 2 options. I could either ignore cells that didnt exist (for example, a cell on the left hand side wont have a cell to its left, and a cell at the top wont have one above it.), or I could reach around to the other side of the grid(Which is what I did. Basically, I count the cell all the way to the right as the left neighbor of a cell all the way to the left. Essentially wrapping around to the other side(Think of a sphere)  <p>
+  <p>I did this with the help of the modulo operator. See line </p>
