@@ -1,7 +1,7 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d"); // g
 var grid = [];
-const rows = 150;
+const rows = 80;
 
 class Cell {
   constructor(x, y, size, current, newVal, pos) {
@@ -34,7 +34,7 @@ function createGrid() {
         j * (canvas.width / rows),
         i * (canvas.height / rows),
         canvas.width / rows,
-        Math.random() > 0.3,
+        Math.random() > 0.4,
         null,
         { x: i, y: j }
       );
@@ -48,9 +48,10 @@ createGrid();
 function drawGrid() {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < rows; j++) {
-      context.beginPath();
-      if (grid[i][j].current) {
-        // context.fillStyle = "black";
+   
+      if (grid[j][i].current) {
+           context.beginPath();
+           context.fillStyle = "white";
         context.rect(
           grid[j][i].x,
           grid[j][i].y,
@@ -58,6 +59,19 @@ function drawGrid() {
           grid[j][i].size
         );
         context.fill();
+         context.stroke()
+      } else { 
+             context.beginPath();
+             context.fillStyle = "black";
+             context.rect(
+               grid[j][i].x,
+               grid[j][i].y,
+               grid[j][i].size,
+               grid[j][i].size
+             );
+             context.fill();
+             context.stroke();
+
       }
     }
   }
@@ -81,4 +95,4 @@ function go() {
   }
   drawGrid();
 }
-setInterval(go, 50);
+setInterval(go, 75);
