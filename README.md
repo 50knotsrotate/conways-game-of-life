@@ -3,7 +3,8 @@
 <ol>
   <li>Clone</li>
   <li>Open in browser</li>
-  <li>Thats it!</li>
+  <li>Click and drag to draw on the canvas</li>
+  <li>Use spacebar to turn simulation on or off.</li>
  </ol>
  
  <h1>Cool.. Its a bunch of squares.. So whats going on here?</h1>
